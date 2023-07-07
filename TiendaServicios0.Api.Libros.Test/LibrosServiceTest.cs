@@ -78,7 +78,6 @@ namespace TiendaServicios0.Api.Libros.Test
 
 
 
-
         [Fact] // esta notacion "Fact" combierte este metodo a uno de tipo testing
         public async void GetLibros()
         {
@@ -115,6 +114,7 @@ namespace TiendaServicios0.Api.Libros.Test
             Assert.True(lista.Any());
 
         }
+
 
 
         [Fact]
