@@ -1,0 +1,101 @@
+
+
+// este archivo JSON nos servira para confugurar el enrutamiento
+// para el uso/consumo y comunicacion con las otras microservices
+{
+  // dentro de "Routes" se encontrara el arreglo de Endpoints
+  // que se redirigiran a las otras microservices
+  "Routes": [
+    // Configuracion para los controladores de los Endpoints de Libros
+    {
+      "DownstreamPathTemplate": "/api/Libro",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 35037
+        }
+      ],
+      "UpstreamPathTemplate": "/Libro",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "Key": "Libro"
+    },
+    {
+      "DownstreamPathTemplate": "/api/Libro/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 35037
+        }
+      ],
+      "UpstreamPathTemplate": "/Libro/{id}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "DelegatingHandlers": [ "LibroHandler" ]
+    },
+    // Configuracion de los Endpoints de Autores
+    {
+      "DownstreamPathTemplate": "/api/Autor",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 60477
+        }
+      ],
+      "UpstreamPathTemplate": "/Autor",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "Key": "Autor"
+    },
+    {
+      "DownstreamPathTemplate": "/api/Autor/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 60477
+        }
+      ],
+      "UpstreamPathTemplate": "/Autor/{id}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+    },
+    // Coonfiguracion de los Endpoints de Carrito
+    {
+      "DownstreamPathTemplate": "/api/Carrito",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 33271
+        }
+      ],
+      "UpstreamPathTemplate": "/Carrito",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Carrito/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 33271
+        }
+      ],
+      "UpstreamPathTemplate": "/Carrito/{id}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+    }
+
+  ],
+  // Agregaremos un nuevo Endpoint que permita llamar a los Endpoints de multiples microservices al mismo tiempo
+  // generando en un nuevo Endopint que resulte de la combinacion de los Endpoints que queremos ejecutar en uno solo
+  // PERO, este metodo de agregacion SOLO funciona para petciones GET
+  "Aggregates": [
+    {
+      "RouteKeys": [
+        "Libro",
+        "Autor"
+      ],
+      "UpstreamPathTemplate": "/LibroAutor"
+    }
+  ]
+}

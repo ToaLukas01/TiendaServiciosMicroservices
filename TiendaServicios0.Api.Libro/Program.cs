@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 // INICIALIZAMOS EL VALIDADOR DE "FluentValidator" aqui en esta parte donde se agregan los controladores
 // y en su configuracion agregamos una funcion donde le indicamso "<EnDondeEstaLoQueQueremosValidar>"
 builder.Services.AddControllers().AddFluentValidation(config => config.RegisterValidatorsFromAssemblyContaining<NuevoLibro>());
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
